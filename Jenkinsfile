@@ -13,7 +13,8 @@ pipeline{
 		 javaCMD = "${javaHome}/bin/java"
 
 		 mvnHome = tool name: 'MAVEN_HOME', type: 'maven'
-		 mvnCmd = "${mvnHome}/bin/mvn"
+		 //mvnCmd = "${mvnHome}/bin/mvn"
+		 mvnCmd = "${mvnHome}/bin"
 
 		 gradleHome = tool name: 'GRADLE_HOME', type: 'gradle'
 		 grdlCmd = "${gradleHome}/bin/gradle"
@@ -24,11 +25,10 @@ pipeline{
              withEnv(["JAVA_HOME=${tool 'JAVA_HOME'}", "PATH=${tool 'JAVA_HOME'}/bin:${env.PATH}"]){
                 git credentialsId: 'GitHub', url: 'https://github.com/harilearning1989/spring-mvc-web-h2.git', branch: 'main'
                 sh 'java -version'
-                echo "Gradle"
                 echo "Maven"
-                sh "mvn -v"
+                sh "${mvnCmd}/mvn -v"
                 //sh "mvn clean build"
-                sh "mvn clean install -DskipTests=true"
+                sh "${mvnCmd}/mvn clean install -DskipTests=true"
              }
           }
        }
