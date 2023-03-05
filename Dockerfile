@@ -13,4 +13,4 @@ ENTRYPOINT ["java","-jar","spring-mvc-web-h2.war"]
 #docker build -t spring-mvc-web-h2:1.0.0 .
 #docker run -p 8081:8081 -t spring-mvc-web-h2:1.0.0
 #docker run -d -p 8081:8081 -t spring-mvc-web-h2:1.0.0
-#docker build -t spring-web-h2:1 .
+#vdocker build -t spring-web-h2:1 .
