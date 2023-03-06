@@ -7,6 +7,15 @@ pipeline{
 		//echo "Tools"
 		//'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
 	//}
+	parameters {
+		//string defaultValue: 'audit-service', description: 'adding default image name', name: 'IMAGE_DEF_NAME'
+		//string defaultValue: '1.0.0-229', description: 'adding default image tag', name: 'IMAGE_DEF_TAG'
+		//string defaultValue: 'audit-services', description: 'adding default image name', name: 'ARTIFACTS'
+		//string defaultValue: 'Kubernetes', description: 'Choose branch name', name: 'BRANCH_NAME'
+        choice choices: ['build', 'deploy'], description: 'Deploy audit-services project to Kubernetes', name: 'DEPLOY_PROJECT'
+		choice choices: ['development', 'test', 'production'], description: 'Choose the environment', name: 'ENV_DEPLOY'		
+    }
+    
      environment {
 		 FOO = "foo"
 		 javaHome = tool name: 'JAVA_HOME', type: 'jdk'
@@ -20,58 +29,7 @@ pipeline{
 		 grdlCmd = "${gradleHome}/bin/gradle"
      }
     stages{
-    stage('Parameters'){
-			steps {
-                script {
-					properties([
-						parameters([
-							[$class: 'ChoiceParameter', 
-                                choiceType: 'PT_SINGLE_SELECT', 
-                                description: 'Select the Environment from the dropdown List', 
-                                filterLength: 1, 
-                                filterable: false, 
-                                name: 'ENV_DEPLOY', 
-								script: [
-                                    $class: 'GroovyScript', 
-                                    fallbackScript: [
-                                        classpath: [], 
-                                        sandbox: true, 
-                                        script: 
-                                            "return['Could not get the ENV_DEPLOY']"
-                                    ], 
-									script: [
-                                        classpath: [], 
-                                        sandbox: true, 
-                                        script:"return [ 'development', 'test', 'production' ]"
-                                    ]									
-                                ]
-                            ],
-							[$class: 'ChoiceParameter', 
-                                choiceType: 'PT_SINGLE_SELECT', 
-                                description: 'Deploy audit-services project to Kubernetes', 
-                                filterLength: 1, 
-                                filterable: false, 
-                                name: 'DEPLOY_PROJECT', 
-								script: [
-                                    $class: 'GroovyScript', 
-                                    fallbackScript: [
-                                        classpath: [], 
-                                        sandbox: true, 
-                                        script: 
-                                            "return['Could not get the DEPLOY_PROJECT']"
-                                    ], 
-									script: [
-                                        classpath: [], 
-                                        sandbox: true, 
-                                        script:"return [ 'build', 'deploy' ]"
-                                    ]									
-                                ]
-                            ],
-                        ])
-                    ])
-                }
-            }
-        }
+    
        stage('Maven'){
           steps{
              withEnv(["JAVA_HOME=${tool 'JAVA_HOME'}", "PATH=${tool 'JAVA_HOME'}/bin:${env.PATH}"]){
