@@ -20,7 +20,7 @@ pipeline{
 		 grdlCmd = "${gradleHome}/bin/gradle"
      }
     stages{
-       stage('Gradle'){
+       stage('Maven'){
           steps{
              withEnv(["JAVA_HOME=${tool 'JAVA_HOME'}", "PATH=${tool 'JAVA_HOME'}/bin:${env.PATH}"]){
                 git credentialsId: 'GitHub', url: 'https://github.com/harilearning1989/spring-mvc-web-h2.git', branch: 'main'
@@ -31,6 +31,12 @@ pipeline{
                 sh "${mvnCmd}/mvn clean install -DskipTests=true"
              }
           }
+       }
+        stage('Deploy'){
+           steps{
+               sh "cp /target/*.war /Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/webapps/"
+           }
+
        }
     }
 }
