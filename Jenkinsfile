@@ -34,7 +34,8 @@ pipeline{
        }
         stage('Deploy'){
            steps{
-               sh "cp /target/*.war /Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/webapps/"
+           	   sh "pwd" 
+               sh "cp ./target/*.war /Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/webapps/"
            }
 
        }
