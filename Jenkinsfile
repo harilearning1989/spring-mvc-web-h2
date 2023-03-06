@@ -20,6 +20,58 @@ pipeline{
 		 grdlCmd = "${gradleHome}/bin/gradle"
      }
     stages{
+    stage('Parameters'){
+			steps {
+                script {
+					properties([
+						parameters([
+							[$class: 'ChoiceParameter', 
+                                choiceType: 'PT_SINGLE_SELECT', 
+                                description: 'Select the Environment from the dropdown List', 
+                                filterLength: 1, 
+                                filterable: false, 
+                                name: 'ENV_DEPLOY', 
+								script: [
+                                    $class: 'GroovyScript', 
+                                    fallbackScript: [
+                                        classpath: [], 
+                                        sandbox: true, 
+                                        script: 
+                                            "return['Could not get the ENV_DEPLOY']"
+                                    ], 
+									script: [
+                                        classpath: [], 
+                                        sandbox: true, 
+                                        script:"return [ 'development', 'test', 'production' ]"
+                                    ]									
+                                ]
+                            ],
+							[$class: 'ChoiceParameter', 
+                                choiceType: 'PT_SINGLE_SELECT', 
+                                description: 'Deploy audit-services project to Kubernetes', 
+                                filterLength: 1, 
+                                filterable: false, 
+                                name: 'DEPLOY_PROJECT', 
+								script: [
+                                    $class: 'GroovyScript', 
+                                    fallbackScript: [
+                                        classpath: [], 
+                                        sandbox: true, 
+                                        script: 
+                                            "return['Could not get the DEPLOY_PROJECT']"
+                                    ], 
+									script: [
+                                        classpath: [], 
+                                        sandbox: true, 
+                                        script:"return [ 'build', 'deploy' ]"
+                                    ]									
+                                ]
+                            ],
+                        ])
+                    ])
+                }
+            }
+        }
        stage('Maven'){
           steps{
              withEnv(["JAVA_HOME=${tool 'JAVA_HOME'}", "PATH=${tool 'JAVA_HOME'}/bin:${env.PATH}"]){
@@ -32,12 +84,7 @@ pipeline{
              }
           }
        }      
-       stage('CreateImage'){
-         steps{
-         	 sh 'pwd'
-       		 sh 'docker build -t harilearning1989/spring-mvc-web-h2:1.0.0 .'
-       	 }
-       }
+       
         stage('Deploy'){
            steps{
            	   sh "pwd" 
@@ -45,7 +92,12 @@ pipeline{
                sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/shutdown.sh"
                sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/startup.sh"
            }
-
+       }
+       stage('CreateImage'){
+         steps{
+         	 sh 'pwd'
+       		 //sh 'docker build -t harilearning1989/spring-mvc-web-h2:1.0.0 .'
+       	 }
        }
     }
 }
