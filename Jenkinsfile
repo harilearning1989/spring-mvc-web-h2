@@ -31,12 +31,7 @@ pipeline{
                 sh "${mvnCmd}/mvn clean install -DskipTests=true"
              }
           }
-       }
-       
-       stage('Initialize'){
-        	def dockerHome = tool 'myDocker'
-        	env.PATH = "${dockerHome}/bin:${env.PATH}"
-    	}
+       }      
        stage('CreateImage'){
          steps{
          	 sh 'pwd'
