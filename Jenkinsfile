@@ -54,6 +54,7 @@ pipeline{
        stage('CreateImage'){
          steps{
          	 sh 'pwd'
+         	 sh 'docker -v'
        		 sh 'docker build -t harilearning1989/spring-mvc-web-h2:1.0.0 .'
        	 }
        }
