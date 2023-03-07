@@ -46,7 +46,7 @@ pipeline{
         stage('Deploy'){
            steps{
            	   sh "pwd" 
-               sh "cp ./target/*.war /Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/webapps/"
+               //sh "cp ./target/*.war /Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/webapps/"
                //sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/shutdown.sh"
                //sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/startup.sh"
            }
@@ -54,7 +54,7 @@ pipeline{
        stage('CreateImage'){
          steps{
          	 sh 'pwd'
-       		 //sh 'docker build -t harilearning1989/spring-mvc-web-h2:1.0.0 .'
+       		 sh 'docker build -t harilearning1989/spring-mvc-web-h2:1.0.0 .'
        	 }
        }
     }
