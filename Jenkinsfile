@@ -47,8 +47,8 @@ pipeline{
            steps{
            	   sh "pwd" 
                sh "cp ./target/*.war /Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/webapps/"
-               sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/shutdown.sh"
-               sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/startup.sh"
+               //sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/shutdown.sh"
+               //sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/startup.sh"
            }
        }
        stage('CreateImage'){
