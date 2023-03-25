@@ -56,7 +56,7 @@ pipeline{
            steps { 
              script { 
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-creds') { 
-                docker.login("${DOCKER_HUB_USERNAME}", "${DOCKER_HUB_PASSWORD}") 
+                docker.login("9100433025", "$91779Satheesh@") 
           } 
         } 
       }
