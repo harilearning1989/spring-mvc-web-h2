@@ -1,5 +1,6 @@
 FROM openjdk:11
 
+USER jenkins
 #FROM adoptopenjdk/openjdk11:alpine-jre
 # Refer to Maven build -> finalName
 ARG WAR_FILE=/target/spring-mvc-web-h2-0.0.1-SNAPSHOT.war
