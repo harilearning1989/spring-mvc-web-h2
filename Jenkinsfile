@@ -24,7 +24,7 @@ pipeline{
 		 mvnHome = tool name: 'MAVEN_HOME', type: 'maven'
 		 //mvnCmd = "${mvnHome}/bin/mvn"
 		 mvnCmd = "${mvnHome}/bin"
-
+                 DOCKERHUB_CREDENTIALS= credentials('dockerid')     
 		 //gradleHome = tool name: 'GRADLE_HOME', type: 'gradle'
 		 //grdlCmd = "${gradleHome}/bin/gradle"
      }
