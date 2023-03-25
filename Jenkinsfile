@@ -52,16 +52,7 @@ pipeline{
            }
        }
 	    
-        stage('Login to Docker Hub') { 
-           steps { 
-             script { 
-                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-creds') { 
-                docker.login("9100433025", "$91779Satheesh@") 
-          } 
-        } 
-      }
-	    
-	    
+   
        stage('CreateImage'){
          steps{
          	 sh 'pwd'
