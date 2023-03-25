@@ -51,7 +51,12 @@ pipeline{
                //sh "/Users/hari/MyWork/Softwares/Servers/apache-tomcat-9.0.73/bin/startup.sh"
            }
        }
-	    
+        stage('Login') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
    
        stage('CreateImage'){
          steps{
