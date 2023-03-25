@@ -57,6 +57,7 @@ pipeline{
          	 sh 'docker -v'
        		 sh 'docker build -t harilearning1989/spring-mvc-web-h2:1.0.0 .'
 		 sh 'docker image tag harilearning1989/spring-mvc-web-h2:1.0.0 9100433025/hariweb:1.0'
+		 sh 'docker image push 9100433025/hariweb:1.0'
        	 }
        }
     }
